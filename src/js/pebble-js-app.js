@@ -12,20 +12,20 @@ function get(url, data, callback) {
 // get new ID from /createUser
 function getID() {
 	get(server + "/createUser", null, function () {
-		Pebble.sendAppMessage({"0": parseInt(response, 10)});
+		Pebble.sendAppMessage({"0": parseInt(this.responseText, 10)});
 	});
 }
 
 // poll for button assignments
-function getKeys() {
+function getKeys(id) {
 	get(server + "/getKeys", {serial: id}, function () {
-		var data = JSON.parse(response);
+		var data = JSON.parse(this.responseText);
 		Pebble.sendAppMessage({"0": data.top, "1": data.mid, "2": data.bot});
-	}
-});
+	});
+}
 
 // send button to /click
-function sendButton(btn) {
+function sendButton(id, btn) {
 	get(server + "/click", {serial: id, button: btn});
 }
 												
@@ -38,8 +38,10 @@ Pebble.addEventListener("appmessage",
 								if (!id) {
 									getID();
 								} else if (!button) {
-									setInterval(getKeys, buttonUpdateDelay);
+									setInterval(function () {
+										getKeys(id);
+									}, buttonUpdateDelay);
 								} else {
-									sendButton(button);
+									sendButton(id, button);
 								}
 							});
