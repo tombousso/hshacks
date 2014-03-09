@@ -25,7 +25,7 @@ function getKeys(id) {
 
 // send button to /click
 function sendButton(id, btn) {
-	get(server + "/click", "serial=" + id + "&button=" + btn});
+	get(server + "/click", "serial=" + id + "&button=" + btn);
 }
 												
 // Called when incoming message from the Pebble is received
