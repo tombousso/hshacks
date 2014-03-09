@@ -39,6 +39,16 @@ Pebble.addEventListener("appmessage",
 								} else if (!button) {
 									getKeys(id);
 								} else {
-									sendButton(id, button);
+									switch (button) {
+									case 1:
+										sendButton(id, "top");
+										break;
+									case 2:
+										sendButton(id, "mid");
+										break;
+									case 3:
+										sendButton(id, "bot");
+										break;
+									}
 								}
 							});
