@@ -38,9 +38,7 @@ Pebble.addEventListener("appmessage",
 								if (!id) {
 									getID();
 								} else if (!button) {
-									setInterval(function () {
-										getKeys(id);
-									}, buttonUpdateDelay);
+									getKeys(id);
 								} else {
 									sendButton(id, button);
 								}
