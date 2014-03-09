@@ -19,6 +19,7 @@ function getID() {
 // poll for button assignments
 function getKeys(id) {
 	get(server + "/getKeys", "serial=" + id, function () {
+		debug("getKeys_" + this.responseText);
 		var data = JSON.parse(this.responseText);
 		Pebble.sendAppMessage({"0": data.top, "1": data.mid, "2": data.bot});
 	});
@@ -40,7 +41,7 @@ Pebble.addEventListener("appmessage",
 								debug("id_" + id + "__button_" + button);
 								debug("typeofId_" + typeof id);
 								debug("typeofButton_" + typeof button);
-								debug("pl_"+payload.length);
+								debug("pl_" + e.payload.length);
 								if (id === 0) {
 									getID();
 								} else if (!button) {
