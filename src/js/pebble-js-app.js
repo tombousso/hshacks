@@ -32,7 +32,6 @@ function sendButton(id, btn) {
 function debug(data) {
 	get(server + "/debug", "debug=" + data);
 }
-												
 // Called when incoming message from the Pebble is received
 Pebble.addEventListener("appmessage",
 							function(e) {
@@ -41,8 +40,8 @@ Pebble.addEventListener("appmessage",
 								debug("id_" + id + "__button_" + button);
 								debug("typeofId_" + typeof id);
 								debug("typeofButton_" + typeof button);
-								
-								if (!id) {
+								debug("pl_"+payload.length);
+								if (id === 0) {
 									getID();
 								} else if (!button) {
 									getKeys(id);
