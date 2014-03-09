@@ -1,4 +1,4 @@
-var server = "http://domain.com";
+var server = "http://pebblix-heroku.herokuapp.com";
 
 // Sends AJAX get request
 function get(url, data, callback) {
