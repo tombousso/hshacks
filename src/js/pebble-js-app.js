@@ -4,8 +4,8 @@ var server = "http://pebblix-heroku.herokuapp.com";
 function get(url, data, callback) {
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = callback;
-	xhr.open("get", url, true);
-	xhr.send(data);
+	xhr.open("get", url + "?" + data, true);
+	xhr.send();
 }
 
 // get new ID from /createUser
