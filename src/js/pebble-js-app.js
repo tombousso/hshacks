@@ -1,5 +1,4 @@
 var server = "http://domain.com";
-var buttonUpdateDelay = 100;
 
 // Sends AJAX get request
 function get(url, data, callback) {
