@@ -12,7 +12,7 @@ function get(url, data, callback) {
 function getID() {
 	get(server + "/createUser", "", function () {
 		Pebble.sendAppMessage({"0": parseInt(this.responseText, 10)});
-		debug("new id: " + parseInt(this.responseText, 10));
+		debug("newId:" + parseInt(this.responseText, 10));
 	});
 }
 
@@ -38,9 +38,9 @@ Pebble.addEventListener("appmessage",
 							function(e) {
 								var id = e.payload[0];
 								var button = e.payload[1];
-								debug("id: " + id + ", button: " + button);
-								debug("typeof id: " + typeof id);
-								debug("typeof button: " + typeof button);
+								debug("id:" + id + ",button:" + button);
+								debug("typeofId:" + typeof id);
+								debug("typeofButton:" + typeof button);
 								
 								if (!id) {
 									getID();
