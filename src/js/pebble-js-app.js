@@ -1,4 +1,5 @@
 var server = "http://domain.com";
+var buttonUpdateDelay = 100;
 
 // Sends AJAX get request
 function get(url, data, callback) {
@@ -8,9 +9,24 @@ function get(url, data, callback) {
 	xhr.send(data);
 }
 
-// Function to send a message to the Pebble using AppMessage API
-function sendMessage() {
-	Pebble.sendAppMessage({"status": 0, "message": "Hi Pebble, I'm a Phone!"});
+// get new ID from /createUser
+function getID() {
+	get(server + "/createUser", null, function () {
+		Pebble.sendAppMessage({"0": parseInt(response, 10)});
+	});
+}
+
+// poll for button assignments
+function getKeys() {
+	get(server + "/getKeys", {serial: id}, function () {
+		var data = JSON.parse(response);
+		Pebble.sendAppMessage({"0": data.top, "1": data.mid, "2": data.bot});
+	}
+});
+
+// send button to /click
+function sendButton(btn) {
+	get(server + "/click", {serial: id, button: btn});
 }
 												
 // Called when incoming message from the Pebble is received
@@ -20,10 +36,10 @@ Pebble.addEventListener("appmessage",
 								var button = e.payload[1];
 								
 								if (!id) {
-									// get new ID from /createUser
+									getID();
 								} else if (!button) {
-									// poll /getKeys for button assignments
+									setInterval(getKeys, buttonUpdateDelay);
 								} else {
-									// send button to /click
+									sendButton(button);
 								}
 							});
